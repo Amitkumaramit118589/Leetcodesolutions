@@ -1,0 +1,19 @@
+lass Solution {
+public:
+     void helper(vector<int>& nums,vector<int>ans,vector<vector<int>> &finalans,int idx,int n){
+        if(n==idx){
+         finalans.push_back(ans);
+         return;
+        }
+        helper(nums,ans,finalans,idx+1,n);
+        ans.push_back(nums[idx]);
+        helper(nums,ans,finalans,idx+1,n);
+     }
+    vector<vector<int>> subsets(vector<int>& nums) {
+       vector<vector<int>>finalans;
+       vector<int>ans;
+       helper(nums,ans,finalans,0,nums.size());
+       return finalans;
+       
+    }
+};
