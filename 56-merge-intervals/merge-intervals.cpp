@@ -1,22 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& arr) {
-       int n = arr.size(); 
-    
-    sort(arr.begin(), arr.end());
-
+        sort(arr.begin(), arr.end());
     vector<vector<int>> ans;
+    int i = 0;
+    vector<int> temp(2, -1);
+    temp[0] = arr[0][0]; // starting
+    temp[1] = arr[0][1];
 
-    for (int i = 0; i < n; i++) {
-        
-        if (ans.empty() || arr[i][0] > ans.back()[1]) {
-            ans.push_back(arr[i]);
+    while (i + 1 < arr.size()) {
+        //  compare with temp, not arr[i]
+        if (temp[1] >= arr[i + 1][0]) {
+            temp[1] = max(temp[1], arr[i + 1][1]);
+        } else {
+            ans.push_back(temp);
+            temp[0] = arr[i + 1][0];
+            temp[1] = arr[i + 1][1];
         }
-        
-        else {
-            ans.back()[1] = max(ans.back()[1], arr[i][1]);
-        }
+        i++;
     }
+
+    ans.push_back(temp);
     return ans;
-    }
+}
 };
