@@ -6,14 +6,12 @@ public:
         int low=0;
         int high=n-1;
         while(low<=high){
-            if(nums[mid]>target){
-              // low=0;
+            if(nums[mid]>target){ 
                high=mid-1;
                mid=(low+high)/2;
             }
             else if(nums[mid]<target){
                 low=mid+1;
-               // high=n-1;
                 mid=(low+high)/2;
             }
             else return mid;
