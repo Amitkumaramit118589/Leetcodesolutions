@@ -33,7 +33,7 @@ public:
             else st=mid+1;
         }
         if(row==-1)return false;
-       return binarysearch(matrix[mid],target);
+       return binarysearch(matrix[row],target);
        // return false;
     }
 };
