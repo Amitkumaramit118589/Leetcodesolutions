@@ -1,26 +1,33 @@
 class Solution {
 public:
+    void help(string s, int i, int n ,long long &ans){
+         if (i >= n || !isdigit(s[i])) return;
+
+        int digit = s[i] - '0';
+
+        // Overflow check before applying
+        if (ans > (LLONG_MAX - digit) / 10) return;
+
+        ans = ans * 10 + digit;
+
+        help(s, i + 1, n, ans);
+    }
     int myAtoi(string s) {
-        long ans=0;
-        int n=s.size();
+        int n= s.size();
         int i=0;
+        while(i<n && s[i]==' '){
+            i++;
+        }
         int sign=1;
-        while(i < n && s[i] == ' ') {
+        if(i<n && (s[i]=='-'|| s[i]=='+')){
+            if(s[i]=='-')sign*=-1;
             i++;
         }
-        if(i < n && (s[i] == '-' || s[i] == '+')) {
-            sign = (s[i] == '-') ? -1 : 1;
-            i++;
-        }
-        
-        while(i<n && isdigit(s[i])){
-            ans= 10*ans+(s[i]-'0');
-            if(sign==1 && ans>INT_MAX) return INT_MAX;
-            if(sign==-1 && -ans<INT_MIN) return INT_MIN;
-
-            i++;
-
-        }
-        return sign*ans;
+        long long ans=0;
+        help(s,i,n,ans);
+        ans*=sign;
+        if (ans > INT_MAX) return INT_MAX;
+        if (ans < INT_MIN) return INT_MIN;
+        return (int)ans;
     }
 };
