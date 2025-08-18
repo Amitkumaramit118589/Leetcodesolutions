@@ -1,20 +1,20 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int n = s.size();
-        vector<int> freq(256, -1); // ASCII chars ke liye last index
-        int left = 0, ans = 0;
-
-        for (int right = 0; right < n; right++) {
-            char c = s[right];
-
-            // Agar duplicate mila aur uska index current window ke andar hai
-            if (freq[c] >= left) {
-                left = freq[c] + 1;  // window shrink karo
+        vector<bool>count(256,0);
+        int first=0;
+        int second=0;
+        int len=0;
+        int ans=0;
+        while(second<s.size()){
+            while(count[s[second]]){
+                count[s[first]]=0;
+                first++;    
             }
-
-            freq[c] = right; // last index update
-            ans = max(ans, right - left + 1); // max window size
+            count[s[second]]=1;
+           
+            ans=max(ans,second-first+1);
+             second++;
         }
         return ans;
     }
