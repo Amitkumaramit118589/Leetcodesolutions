@@ -1,26 +1,22 @@
 class Solution {
 public:
-    int totalFruit(vector<int>& arr) {
-        int n = arr.size();
-        int i = 0, j = 0;
-        unordered_map<int,int> basket;
-        int ans = 0;
-
-        while (j < n) {
-            basket[arr[j]]++;   // add current fruit
-
-            // agar 2 se zyada types ho gayi to shrink window
-            while (basket.size() > 2) {
-                basket[arr[i]]--;
-                if (basket[arr[i]] == 0) {
-                    basket.erase(arr[i]);
-                }
+    int totalFruit(vector<int>& fruits) {
+        int i=0,j=0;
+        map<int,int>mp;
+        int cnt=0;
+        while(j<fruits.size()){
+             mp[fruits[j]]++;
+              while(mp.size()>2){
+                mp[fruits[i]]--;
+                if(mp[fruits[i]]==0) mp.erase(fruits[i]);
                 i++;
-            }
-
-            ans = max(ans, j - i + 1); // valid window
-            j++;
+              }
+              cnt=max(cnt,j-i+1);
+              
+              j++;
+             
+              
         }
-        return ans;
+        return cnt;
     }
 };
