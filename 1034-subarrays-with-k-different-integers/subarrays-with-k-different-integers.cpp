@@ -1,24 +1,25 @@
 class Solution {
 public:
-    int subarraysWithKDistinct(vector<int>& nums, int k) {
-        int sub_with_max_element_k = subarray_with_atmost_k(nums, k);
-        int reduced_sub_with_max_k = subarray_with_atmost_k(nums, k - 1);
-        return (sub_with_max_element_k - reduced_sub_with_max_k);
-    }
-    int subarray_with_atmost_k(vector<int>& nums, int k) {
-        unordered_map<int, int> map;
-        int left = 0, right = 0, ans = 0;
-        while (right < nums.size()) {
-            map[nums[right]]++;
-            while (map.size() > k) {
-                map[nums[left]]--;
-                if (map[nums[left]] == 0)
-                    map.erase(nums[left]);
-                left++;
+    int subarraywithk(vector<int> &nums,int k){
+        int n=nums.size();
+        map<int,int>mp;
+        int i=0,j=0;
+        int res=0;
+        while(j<n){
+            mp[nums[j]]++;
+            while(mp.size()>k){
+               mp[nums[i]]--;
+               if(mp[nums[i]]==0)mp.erase(nums[i]);
+               i++;
             }
-            ans += right - left + 1; 
-            right++;
+            res+=j-i+1;
+            j++;
         }
-        return ans;
+        return res;
+    }
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        int k_tak=subarraywithk(nums,k);
+        int k_1tak=subarraywithk(nums,k-1);
+        return k_tak-k_1tak;
     }
 };
