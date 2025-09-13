@@ -1,7 +1,7 @@
 class cmp{
     public:
         bool operator()(pair<int,int> a,pair<int,int> b){
-            return a.second>b.second;
+            return a.second<b.second;
         }
 };
 class Solution {
@@ -14,13 +14,13 @@ public:
         }
         for(auto it:mp){
             pq.push({it.first,it.second});
-            if(pq.size()>k)pq.pop();
+            // if(pq.size()>k)pq.pop();
         }
         vector<int>ans;
-        while(pq.size()>0 ){
+        while(pq.size()>0 && k-- ){
             ans.push_back(pq.top().first);
             pq.pop();
-            // k--;
+             
         }
         return ans;
     }
