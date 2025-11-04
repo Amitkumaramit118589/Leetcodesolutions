@@ -9,19 +9,18 @@
  */
 class Solution {
 public:
+    bool find(TreeNode* root,TreeNode* target){
+        if(root==NULL)return false;
+        if(root==target) return true;
+        return find(root->left,target) || find(root->right,target);
+        
+    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // Base case: if root is NULL or matches p or q, return root
-        if(root == NULL || root == p || root == q) return root;
+        if(root==p || root==q) return root;
+        else if(find(root->left,p) && find(root->right,q)) return root;
+        else if(find(root->left,q) && find(root->right,p)) return root;
+        else if(find(root->left,p) && !find(root->right,q)) return lowestCommonAncestor(root->left,p,q);
+        else return lowestCommonAncestor(root->right,p,q);
 
-        // Search for p and q in left and right subtrees
-        TreeNode* left = lowestCommonAncestor(root->left, p, q);
-        TreeNode* right = lowestCommonAncestor(root->right, p, q);
-
-        // If left is NULL, both p and q are in right subtree
-        if(left == NULL) return right;
-        // If right is NULL, both p and q are in left subtree
-        else if(right == NULL) return left;
-        // If both non-null, p and q are in different subtrees, root is LCA
-        else return root;
     }
 };
