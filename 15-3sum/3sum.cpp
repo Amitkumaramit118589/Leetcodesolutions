@@ -1,35 +1,33 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& arr) {
-       vector<vector<int>> ans;
-       int n=arr.size();
-    sort(arr.begin(), arr.end());
-    for (int i = 0; i < n; i++) {
-        //remove duplicates:
-        if (i != 0 && arr[i] == arr[i - 1]) continue;
-
-        //moving 2 pointers:
-        int j = i + 1;
-        int k = n - 1;
-        while (j < k) {
-            int sum = arr[i] + arr[j] + arr[k];
-            if (sum < 0) {
-                j++;
-            }
-            else if (sum > 0) {
-                k--;
-            }
-            else {
-                vector<int> temp = {arr[i], arr[j], arr[k]};
-                ans.push_back(temp);
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>>ans;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        
+       for(int i=0;i<n;i++){
+            int j=i+1;
+            int k=n-1;
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            while(j<k){
+                int sum = nums[i]+nums[j]+nums[k];
+                if(sum<0){
+                    j++;
+                }
+                else if(sum==0){
+                ans.push_back({nums[i],nums[j],nums[k]});
                 j++;
                 k--;
-                //skip the duplicates:
-                while (j < k && arr[j] == arr[j - 1]) j++;
-                while (j < k && arr[k] == arr[k + 1]) k--;
+                // duplicate j skip
+                 while(j < k && nums[j] == nums[j - 1]) j++;
+                 // duplicate k skip
+                 while(j < k && nums[k] == nums[k + 1]) k--;
+                }
+                else{
+                    k--;
+                }
             }
-        }
-    }
-    return ans;
+       }
+        return ans;
     }
 };
