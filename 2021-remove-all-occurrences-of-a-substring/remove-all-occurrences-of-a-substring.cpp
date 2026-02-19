@@ -8,9 +8,6 @@ public:
             if(ans.size()>=part.size() && ans.substr(ans.size()-n)==part){
                ans.erase(ans.size()-n);
             }
-            else{
-                
-            }
 
         }
         return ans;
